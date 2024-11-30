@@ -25,7 +25,20 @@ public class RestaurantService {
         return restaurantRepository.save(restaurant);
     }
 
-    public void setRestaurantRepository(RestaurantRepository restaurantRepository) {
-        this.restaurantRepository = restaurantRepository;
+    public void deleteRestaurant(int id) {
+        restaurantRepository.deleteById(id);
+    }
+
+    public Restaurant updateRestaurant(Restaurant restaurant) {
+        if (restaurantRepository.findById(restaurant.getId()).isPresent()) {
+            Restaurant updatedRestaurant = restaurantRepository.getById(restaurant.getId());
+            updatedRestaurant.setName(restaurant.getName());
+            updatedRestaurant.setAddress(restaurant.getAddress());
+            updatedRestaurant.setCapacity(restaurant.getCapacity());
+            return restaurantRepository.save(updatedRestaurant);
+        }
+        else {
+            return null;
+        }
     }
 }
