@@ -1,6 +1,5 @@
 package com.example.teruzushi_project.service;
 
-import com.example.teruzushi_project.modelo.Restaurant;
 import com.example.teruzushi_project.modelo.Tables;
 import com.example.teruzushi_project.repository.TablesRepository;
 import org.springframework.beans.factory.annotation.Autowired;

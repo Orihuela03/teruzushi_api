@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RestaurantService {
@@ -17,8 +18,8 @@ public class RestaurantService {
         return restaurantRepository.findAll();
     }
 
-    public Restaurant getRestaurantById(int id) {
-        return restaurantRepository.findById(id).get();
+    public Optional<Restaurant> getRestaurantById(int id) {
+        return restaurantRepository.findById(id);
     }
 
     public Restaurant addRestaurant(Restaurant restaurant) {
