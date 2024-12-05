@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/teruzushi/booking")
+@RequestMapping("/teruzushiapi/booking")
+@CrossOrigin(origins = "http://localhost:5173")
 public class BookingController {
 
     @Autowired
@@ -40,7 +41,7 @@ public class BookingController {
         return bookingService.updateBooking(updatedBooking);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deleteBooking(@PathVariable int id) {
         bookingService.deleteBooking(id);
     }
