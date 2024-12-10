@@ -31,10 +31,10 @@ public class BookingController {
     @PostMapping("/booking")
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
         try {
-            Booking newBooking = bookingService.addBooking(booking);  // Lógica para crear la reserva
-            return ResponseEntity.ok(newBooking);  // Devuelve la reserva creada con el código 200
+            Booking newBooking = bookingService.addBooking(booking);
+            return ResponseEntity.ok(newBooking);
         } catch (Exception e) {
-            return ResponseEntity.status(500).body(null);  // Si hay error, responde con 500
+            return ResponseEntity.status(500).body(null);
         }
     }
 
