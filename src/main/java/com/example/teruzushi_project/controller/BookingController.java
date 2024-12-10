@@ -1,6 +1,5 @@
 package com.example.teruzushi_project.controller;
 
-
 import com.example.teruzushi_project.modelo.Booking;
 import com.example.teruzushi_project.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/teruzushiapi/booking")
-@CrossOrigin(origins = "http://localhost:5173")
 public class BookingController {
 
     @Autowired
@@ -30,9 +28,14 @@ public class BookingController {
                 .orElseGet(() ->ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public Booking createBooking(@RequestBody Booking booking) {
-        return bookingService.addBooking(booking);
+    @PostMapping("/booking")
+    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
+        try {
+            Booking newBooking = bookingService.addBooking(booking);  // Lógica para crear la reserva
+            return ResponseEntity.ok(newBooking);  // Devuelve la reserva creada con el código 200
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);  // Si hay error, responde con 500
+        }
     }
 
     @PutMapping("/{id}")

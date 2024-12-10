@@ -1,6 +1,5 @@
 package com.example.teruzushi_project.controller;
 
-
 import com.example.teruzushi_project.modelo.Restaurant;
 import com.example.teruzushi_project.service.RestaurantService;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +40,7 @@ public class RestaurantController {
         return restaurantService.addRestaurant(updatedRestaurant);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deleteRestaurant(@PathVariable int id) {
         restaurantService.deleteRestaurant(id);
     }
