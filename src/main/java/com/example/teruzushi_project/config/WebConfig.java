@@ -9,10 +9,10 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")  // Habilita CORS para todas las rutas
-                .allowedOrigins("http://localhost:8100")  // Permite solicitudes desde Ionic
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Métodos permitidos
-                .allowedHeaders("*")  // Permite todas las cabeceras
-                .allowCredentials(true);  // Permite el envío de cookies o credenciales
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:8100")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }
