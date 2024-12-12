@@ -39,7 +39,7 @@ public class BookingService {
             updatedBooking.setCustomerPhone(booking.getCustomerPhone());
             updatedBooking.setNumberOfEaters(booking.getNumberOfEaters());
             updatedBooking.setDate(booking.getDate());
-            updatedBooking.setTables(booking.getTables());
+            updatedBooking.setRestaurant(booking.getRestaurant());
             return bookingRepository.save(updatedBooking);
         }
         else {

@@ -18,17 +18,17 @@ public class Booking {
     private int NumberOfEaters;
     private Date Date;
     @ManyToOne
-    @JoinColumn(name = "id_table", nullable = false)
-    private Tables tables;
+    @JoinColumn(name = "id_restaurant", nullable = false)
+    private Restaurant restaurant;
 
-    public Booking(int id, String customerName, String customerEmail, String customerPhone, int numberOfEaters, java.util.Date date, Tables tables) {
+    public Booking(int id, String customerName, String customerEmail, String customerPhone, int numberOfEaters, java.util.Date date, Restaurant restaurant) {
         Id = id;
         CustomerName = customerName;
         CustomerEmail = customerEmail;
         CustomerPhone = customerPhone;
         NumberOfEaters = numberOfEaters;
         Date = date;
-        this.tables = tables;
+        this.restaurant = restaurant;
     }
 
     public Booking( ) {
@@ -82,11 +82,11 @@ public class Booking {
         Date = date;
     }
 
-    public Tables getTables() {
-        return tables;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setTables(Tables tables) {
-        this.tables = tables;
+    public void setRestaurant(Restaurant restuarant) {
+        this.restaurant = restaurant;
     }
 }
