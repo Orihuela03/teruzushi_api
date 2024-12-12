@@ -28,7 +28,7 @@ public class BookingController {
                 .orElseGet(() ->ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/booking")
+    @PostMapping
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
         try {
             Booking newBooking = bookingService.addBooking(booking);

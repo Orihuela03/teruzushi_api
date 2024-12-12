@@ -2,7 +2,7 @@ package com.example.teruzushi_project.service;
 
 import com.example.teruzushi_project.modelo.Booking;
 import com.example.teruzushi_project.repository.BookingRepository;
-import com.example.teruzushi_project.repository.TablesRepository;
+import com.example.teruzushi_project.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
