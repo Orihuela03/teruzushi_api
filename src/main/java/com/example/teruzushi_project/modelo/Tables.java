@@ -9,6 +9,7 @@ public class Tables {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "capacity")
     private int Capacity;
     @ManyToOne
     @JoinColumn(name = "id_restaurant", nullable = false)

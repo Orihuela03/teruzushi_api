@@ -3,6 +3,7 @@ package com.example.teruzushi_project.controller;
 import com.example.teruzushi_project.modelo.Booking;
 import com.example.teruzushi_project.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,13 +31,10 @@ public class BookingController {
 
     @PostMapping
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
-        try {
-            Booking newBooking = bookingService.addBooking(booking);
-            return ResponseEntity.ok(newBooking);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(null);
-        }
+        Booking savedBooking = bookingService.addBooking(booking);
+        return new ResponseEntity<>(savedBooking, HttpStatus.CREATED);
     }
+
 
     @PutMapping("/{id}")
     public Booking updateBooking(@PathVariable int id, @RequestBody Booking updatedBooking) {

@@ -12,10 +12,15 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
+    @Column(name = "customer_name")
     private String CustomerName;
+    @Column(name = "customer_email")
     private String CustomerEmail;
+    @Column(name = "customer_phone")
     private String CustomerPhone;
+    @Column(name = "number_of_eaters")
     private int NumberOfEaters;
+    @Column(name = "date")
     private Date Date;
     @ManyToOne
     @JoinColumn(name = "id_restaurant", nullable = false)

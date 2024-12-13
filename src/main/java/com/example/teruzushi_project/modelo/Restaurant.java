@@ -9,8 +9,11 @@ public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
+    @Column(name = "name")
     private String Name;
+    @Column(name = "address")
     private String Address;
+    @Column(name = "capacity")
     private int Capacity;
 
     public Restaurant(int id, String name, String address, int capacity) {
