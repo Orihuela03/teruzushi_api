@@ -5,7 +5,8 @@ import com.example.teruzushi_project.repository.TablesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TablesService {
@@ -17,28 +18,15 @@ public class TablesService {
         return tablesRepository.findAll();
     }
 
-    public Optional<Tables> getTablesById(Integer id) {
+    public Optional<Tables> getTableById(Long id) {
         return tablesRepository.findById(id);
     }
 
-    public Tables addTables(Tables tables) {
-        return tablesRepository.save(tables);
+    public Tables saveTable(Tables table) {
+        return tablesRepository.save(table);
     }
 
-    public void deleteTable(Integer id) {
+    public void deleteTable(Long id) {
         tablesRepository.deleteById(id);
     }
-
-    public Tables updateTables(Tables tables) {
-        if (tablesRepository.findById(tables.getId()).isPresent()) {
-            Tables updatedTables = tablesRepository.getById(tables.getId());
-            updatedTables.setCapacity(tables.getCapacity());
-            updatedTables.setRestaurant(tables.getRestaurant());
-            return tablesRepository.save(updatedTables);
-        }
-        else{
-            return null;
-        }
-    }
-
 }

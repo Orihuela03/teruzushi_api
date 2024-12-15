@@ -18,28 +18,15 @@ public class RestaurantService {
         return restaurantRepository.findAll();
     }
 
-    public Optional<Restaurant> getRestaurantById(int id) {
+    public Optional<Restaurant> getRestaurantById(Long id) {
         return restaurantRepository.findById(id);
     }
 
-    public Restaurant addRestaurant(Restaurant restaurant) {
+    public Restaurant saveRestaurant(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
 
-    public void deleteRestaurant(int id) {
+    public void deleteRestaurant(Long id) {
         restaurantRepository.deleteById(id);
-    }
-
-    public Restaurant updateRestaurant(Restaurant restaurant) {
-        if (restaurantRepository.findById(restaurant.getId()).isPresent()) {
-            Restaurant updatedRestaurant = restaurantRepository.getById(restaurant.getId());
-            updatedRestaurant.setName(restaurant.getName());
-            updatedRestaurant.setAddress(restaurant.getAddress());
-            updatedRestaurant.setCapacity(restaurant.getCapacity());
-            return restaurantRepository.save(updatedRestaurant);
-        }
-        else {
-            return null;
-        }
     }
 }

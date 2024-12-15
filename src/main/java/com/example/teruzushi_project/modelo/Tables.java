@@ -3,40 +3,41 @@ package com.example.teruzushi_project.modelo;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "tables")
 public class Tables {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column(name = "capacity")
-    private int Capacity;
+    private Long id;
+
+    private int capacity;
+
     @ManyToOne
-    @JoinColumn(name = "id_restaurant", nullable = false)
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    public Tables(int id, int capacity, Restaurant restaurant) {
+    public Tables(Long id, int capacity, Restaurant restaurant) {
         this.id = id;
-        Capacity = capacity;
+        this.capacity = capacity;
         this.restaurant = restaurant;
     }
 
-    public Tables() {}
+    public Tables() {
+    }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     public int getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
     public void setCapacity(int capacity) {
-        Capacity = capacity;
+        this.capacity = capacity;
     }
 
     public Restaurant getRestaurant() {

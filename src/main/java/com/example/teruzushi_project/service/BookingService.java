@@ -2,7 +2,6 @@ package com.example.teruzushi_project.service;
 
 import com.example.teruzushi_project.modelo.Booking;
 import com.example.teruzushi_project.repository.BookingRepository;
-import com.example.teruzushi_project.repository.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,32 +18,15 @@ public class BookingService {
         return bookingRepository.findAll();
     }
 
-    public Optional<Booking> getBookingById(Integer id) {
+    public Optional<Booking> getBookingById(Long id) {
         return bookingRepository.findById(id);
     }
 
-    public Booking addBooking(Booking booking) {
+    public Booking saveBooking(Booking booking) {
         return bookingRepository.save(booking);
     }
 
-    public void deleteBooking(int id) {
+    public void deleteBooking(Long id) {
         bookingRepository.deleteById(id);
     }
-
-    public Booking updateBooking(Booking booking) {
-        if (bookingRepository.findById(booking.getId()).isPresent()) {
-            Booking updatedBooking = bookingRepository.getById(booking.getId());
-            updatedBooking.setCustomerName(booking.getCustomerName());
-            updatedBooking.setCustomerEmail(booking.getCustomerEmail());
-            updatedBooking.setCustomerPhone(booking.getCustomerPhone());
-            updatedBooking.setNumberOfEaters(booking.getNumberOfEaters());
-            updatedBooking.setDate(booking.getDate());
-            updatedBooking.setRestaurant(booking.getRestaurant());
-            return bookingRepository.save(updatedBooking);
-        }
-        else {
-            return null;
-        }
-    }
-
 }

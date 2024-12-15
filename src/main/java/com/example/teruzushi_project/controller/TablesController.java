@@ -7,41 +7,50 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/teruzushiapi/tables")
+@RequestMapping("/api/tables")
 public class TablesController {
 
     @Autowired
     private TablesService tablesService;
 
     @GetMapping
-    public List<Tables> getTables() {
+    public List<Tables> getAllTables() {
         return tablesService.getAllTables();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Tables> getTableById(@PathVariable int id) {
-        Optional<Tables> tables = tablesService.getTablesById(id);
-        return tables.map(ResponseEntity::ok)
-                .orElseGet(() ->ResponseEntity.notFound().build());
+    public ResponseEntity<Tables> getTableById(@PathVariable Long id) {
+        return tablesService.getTableById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Tables addTables(@RequestBody Tables tables) {
-        return tablesService.addTables(tables);
+    public ResponseEntity<Tables> createTable(@RequestBody Tables table) {
+        if (table.getRestaurant() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(tablesService.saveTable(table));
     }
 
     @PutMapping("/{id}")
-    public Tables updateTables(@PathVariable int id, @RequestBody Tables updatedTables) {
-        updatedTables.setId(id);
-        return tablesService.addTables(updatedTables);
+    public ResponseEntity<Tables> updateTable(@PathVariable Long id, @RequestBody Tables table) {
+        return tablesService.getTableById(id).map(existing -> {
+            existing.setCapacity(table.getCapacity());
+            existing.setRestaurant(table.getRestaurant());
+            tablesService.saveTable(existing);
+            return ResponseEntity.ok(existing);
+        }).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTable(@PathVariable int id) {
-        tablesService.deleteTable(id);
+    public ResponseEntity<Void> deleteTable(@PathVariable Long id) {
+        if (tablesService.getTableById(id).isPresent()) {
+            tablesService.deleteTable(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
-
 }

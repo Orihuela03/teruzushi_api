@@ -1,97 +1,95 @@
 package com.example.teruzushi_project.modelo;
 
 import jakarta.persistence.*;
-
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDate;
 
 @Entity
-@Table (name = "booking")
 public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
-    @Column(name = "customer_name")
-    private String CustomerName;
-    @Column(name = "customer_email")
-    private String CustomerEmail;
-    @Column(name = "customer_phone")
-    private String CustomerPhone;
-    @Column(name = "number_of_eaters")
-    private int NumberOfEaters;
-    @Column(name = "date")
-    private Date Date;
+    private Long id;
+
+    private String customerName;
+
+    private String customerEmail;
+
+    private String customerPhone;
+
+    private int numberOfEaters;
+
+    private LocalDate date;
+
     @ManyToOne
-    @JoinColumn(name = "id_restaurant", nullable = false)
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    public Booking(int id, String customerName, String customerEmail, String customerPhone, int numberOfEaters, java.util.Date date, Restaurant restaurant) {
-        Id = id;
-        CustomerName = customerName;
-        CustomerEmail = customerEmail;
-        CustomerPhone = customerPhone;
-        NumberOfEaters = numberOfEaters;
-        Date = date;
+    public Booking(Long id, String customerName, String customerEmail, String customerPhone, int numberOfEaters, LocalDate date, Restaurant restaurant) {
+        this.id = id;
+        this.customerName = customerName;
+        this.customerEmail = customerEmail;
+        this.customerPhone = customerPhone;
+        this.numberOfEaters = numberOfEaters;
+        this.date = date;
         this.restaurant = restaurant;
     }
 
-    public Booking( ) {
+    public Booking() {
     }
 
-    public int getId() {
-        return Id;
+    public Long getId() {
+        return id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCustomerName() {
-        return CustomerName;
+        return customerName;
     }
 
     public void setCustomerName(String customerName) {
-        CustomerName = customerName;
+        this.customerName = customerName;
     }
 
     public String getCustomerEmail() {
-        return CustomerEmail;
+        return customerEmail;
     }
 
     public void setCustomerEmail(String customerEmail) {
-        CustomerEmail = customerEmail;
+        this.customerEmail = customerEmail;
     }
 
     public String getCustomerPhone() {
-        return CustomerPhone;
+        return customerPhone;
     }
 
     public void setCustomerPhone(String customerPhone) {
-        CustomerPhone = customerPhone;
+        this.customerPhone = customerPhone;
     }
 
     public int getNumberOfEaters() {
-        return NumberOfEaters;
+        return numberOfEaters;
     }
 
     public void setNumberOfEaters(int numberOfEaters) {
-        NumberOfEaters = numberOfEaters;
+        this.numberOfEaters = numberOfEaters;
     }
 
-    public java.util.Date getDate() {
-        return Date;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDate(java.util.Date date) {
-        Date = date;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Restaurant getRestaurant() {
         return restaurant;
     }
 
-    public void setRestaurant(Restaurant restuarant) {
+    public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
 }

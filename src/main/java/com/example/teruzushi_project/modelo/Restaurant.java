@@ -1,59 +1,62 @@
 package com.example.teruzushi_project.modelo;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
-@Table (name = "restaurant")
 public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
-    @Column(name = "name")
-    private String Name;
-    @Column(name = "address")
-    private String Address;
-    @Column(name = "capacity")
-    private int Capacity;
+    private Long id;
 
-    public Restaurant(int id, String name, String address, int capacity) {
-        Id = id;
-        Name = name;
-        Address = address;
-        Capacity = capacity;
+    private String name;
+
+    private String address;
+
+    private int capacity;
+
+    public Restaurant(Long id, String name, String address, int capacity) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.capacity = capacity;
     }
 
-    public Restaurant() {}
-
-    public int getId() {
-        return Id;
+    public Restaurant() {
     }
 
-    public void setId(int id) {
-        Id = id;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getAddress() {
-        return Address;
+        return address;
     }
 
     public void setAddress(String address) {
-        Address = address;
+        this.address = address;
     }
 
     public int getCapacity() {
-        return Capacity;
+        return capacity;
     }
 
     public void setCapacity(int capacity) {
-        Capacity = capacity;
+        this.capacity = capacity;
     }
 }

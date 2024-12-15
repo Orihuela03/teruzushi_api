@@ -3,47 +3,59 @@ package com.example.teruzushi_project.controller;
 import com.example.teruzushi_project.modelo.Booking;
 import com.example.teruzushi_project.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/teruzushiapi/booking")
+@RequestMapping("/api/bookings")
 public class BookingController {
 
     @Autowired
     private BookingService bookingService;
 
     @GetMapping
-    public List<Booking> getBookings() {
+    public List<Booking> getAllBookings() {
         return bookingService.getAllBookings();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Booking> getBookingById(@PathVariable int id) {
-        Optional<Booking> booking = bookingService.getBookingById(id);
-        return booking.map(ResponseEntity::ok)
-                .orElseGet(() ->ResponseEntity.notFound().build());
+    public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
+        return bookingService.getBookingById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
-        Booking savedBooking = bookingService.addBooking(booking);
-        return new ResponseEntity<>(savedBooking, HttpStatus.CREATED);
+    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
+        // Validamos que la reserva tenga un restaurante asociado
+        if (booking.getRestaurant() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(bookingService.saveBooking(booking));
     }
 
-
     @PutMapping("/{id}")
-    public Booking updateBooking(@PathVariable int id, @RequestBody Booking updatedBooking) {
-        updatedBooking.setId(id);
-        return bookingService.updateBooking(updatedBooking);
+    public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody Booking booking) {
+        return bookingService.getBookingById(id).map(existing -> {
+            existing.setCustomerName(booking.getCustomerName());
+            existing.setCustomerEmail(booking.getCustomerEmail());
+            existing.setCustomerPhone(booking.getCustomerPhone());
+            existing.setNumberOfEaters(booking.getNumberOfEaters());
+            existing.setDate(booking.getDate());
+            existing.setRestaurant(booking.getRestaurant());
+            bookingService.saveBooking(existing);
+            return ResponseEntity.ok(existing);
+        }).orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public void deleteBooking(@PathVariable int id) {
-        bookingService.deleteBooking(id);
+    public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
+        if (bookingService.getBookingById(id).isPresent()) {
+            bookingService.deleteBooking(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
